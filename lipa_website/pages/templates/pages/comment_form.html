@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>New comment</h1>
+    <form method="POST" class="post-form">
+    {% csrf_token %}
+    <table class='table'>
+      {{ form.media }}
+      {{ form.as_table }}
+    </table>
+    <button type="submit" class="save btn btn-primary">Post Comment</button>
+    </form>
+{% endblock %}

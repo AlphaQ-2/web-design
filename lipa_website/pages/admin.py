@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Category, Article, ArticleImage, Service
+from .models import Category, Article, ArticleImage, Service, Comment
 # Register your models here.
 
-admin.register(Category)
-admin.register(Service)
+admin.site.register(Category)
+admin.site.register(Service)
+admin.site.register(Comment)
 
 
 class ArticleImageAdmin(admin.StackedInline):
@@ -11,7 +12,7 @@ class ArticleImageAdmin(admin.StackedInline):
 
 
 @admin.register(Article)
-class PostAdmin(admin.ModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
     inlines = [ArticleImageAdmin]
 
     class Meta:
