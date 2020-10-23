@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Send A Message</h1>
+    <p>Got a question? inquiry? or feedback?</p>
+    <form method="POST" enctype="multipart/form-data" class="post-form">
+    {% csrf_token %}
+    <table class='table'>
+      {{form.as_table}}
+    </table>
+    <button type="submit" class="save btn btn-primary">Send</button>
+    </form>
+
+{% endblock %}

@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Article, Comment, Category, Job
-from .forms import ArticleForm, CommentForm, JobForm
+from .models import Article, Comment, Category, Job, Message, ArticleImage
+from .forms import ArticleForm, CommentForm, JobForm, MessageForm
 
 from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView,
@@ -32,6 +32,10 @@ class HomePage(TemplateView):
 class ThanksPage(TemplateView):
     template_name = 'thanks.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Thank you'
+        return context
 
 class LoggedInPage(TemplateView):
     template_name = 'loggedin.html'
@@ -90,10 +94,14 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = get_object_or_404(Article, slug=self.kwargs['slug'])
+        article_images = ArticleImage.objects.filter(
+            article=article
+        )
         categories = Category.objects.all()[:10]
         jobs = Job.objects.filter(
                 Q(created_date__lte=timezone.now()) & Q(is_open=True)
                 ).order_by('-created_date')[:10]
+        context['article_images'] = article_images
         context['jobs'] = jobs
         context['categories'] = categories
         context['page_title'] = article.title
@@ -201,8 +209,18 @@ class CreateJobView(LoginRequiredMixin, CreateView):
         context['page_title'] = 'Create Job'
         return context
 
-    def get_absolute_url(self):
-        return reverse('article_list', args=[])
+
+class CreateMessageView(CreateView):
+    redirect_field_name = 'pages/contact.html'
+
+    form_class = MessageForm
+
+    model = Message
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Send a message'
+        return context
 
 
 #######################################

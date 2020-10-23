@@ -31,6 +31,7 @@ urlpatterns = [
     path('signup/', views.SignUp.as_view(), name='signup'),
     path('loggedin/', views.LoggedInPage.as_view(), name='loggedin'),
     path('thanks/', views.ThanksPage.as_view(), name='thanks'),
+    path('contact/', views.CreateMessageView.as_view(), name='contact'),
 ]
 
 if settings.DEBUG:

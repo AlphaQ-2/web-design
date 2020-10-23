@@ -86,7 +86,7 @@ class Comment(models.Model):
 class ArticleImage(models.Model):
     article = models.ForeignKey(Article,
                                 default=None, on_delete=models.CASCADE)
-    images = models.FileField(upload_to='article_photos/')
+    images = models.ImageField(upload_to='article_photos/')
 
     def __str__(self):
         return self.article.title
@@ -113,3 +113,16 @@ class Job(models.Model):
 
     def get_absolute_url(self):
         return reverse('article_list', args=[])
+
+
+class Message(models.Model):
+    name = models.TextField(max_length=200)
+    email = models.EmailField()
+    body_text = models.TextField()
+    time_sent = models.DateTimeField(default=timezone.now, editable=False)
+
+    def __str__(self):
+        return self.name + ' | ' + str(self.time_sent)
+
+    def get_absolute_url(self):
+        return reverse('thanks', args={})

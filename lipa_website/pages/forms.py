@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article, Comment, Job
+from .models import Article, Comment, Job, Message
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
@@ -57,4 +57,21 @@ class JobForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
             'company': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
             'link': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
+        }
+
+
+class MessageForm(forms.ModelForm):
+
+    class Meta:
+        model = Message
+        fields = ('name', 'email', 'body_text',)
+        labels = {
+            'body_text': 'Message'
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
+            'email': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
+            'body_text': forms.Textarea(attrs={
+                            'class': 'form-control', }),
         }
