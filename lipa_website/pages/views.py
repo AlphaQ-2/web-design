@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Article, Comment, Category, Job, Message, ArticleImage
-from .forms import ArticleForm, CommentForm, JobForm, MessageForm
+from .models import Article, Comment, Category, Job, Message, ArticleImage, \
+                    Service
+from .forms import ArticleForm, CommentForm, JobForm, MessageForm, ServiceForm
 
 from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView,
@@ -37,6 +38,7 @@ class ThanksPage(TemplateView):
         context['page_title'] = 'Thank you'
         return context
 
+
 class LoggedInPage(TemplateView):
     template_name = 'loggedin.html'
 
@@ -52,7 +54,7 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = 'About'
+        context['page_title'] = 'Who We Are'
         return context
 
 
@@ -119,7 +121,9 @@ class ArticleDetailView(DetailView):
                                        body_text=text)  # fix
 
         except IntegrityError:
-            messages.warning(self.request, ("Warning, can't comment on {}".format(article.title)))
+            messages.warning(self.request, (
+                            "Warning, can't comment on {}".format(article.title)
+                            ))
 
         else:
             messages.success(self.request, "Comment posted")
@@ -220,6 +224,32 @@ class CreateMessageView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Send a message'
+        return context
+
+
+class CreateServiceView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'pages/service_list.html'
+
+    form_class = ServiceForm
+
+    model = Service
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Create a Service'
+        return context
+
+
+class ServicesListView(ListView):
+    model = Service
+
+    def get_queryset(self):
+        return Service.objects.all().order_by('name')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'What We Do'
         return context
 
 

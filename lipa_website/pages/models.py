@@ -100,6 +100,9 @@ class Service(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('service_list', args=[])
+
 
 class Job(models.Model):
     title = models.TextField(max_length=200)
