@@ -31,12 +31,11 @@ class Article(models.Model):
                                null=True, editable=False)
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField('Date Published', blank=True,
-                                            null=True)
+                                          null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True)	 # foreign key
     hero_image = models.ImageField(upload_to='article_photos/',
-                                   blank=True,
-                                   null=True)
+                                   blank=True)
     body_text = RichTextField(blank=True, null=True)
 
     # str Helper method to return the title if we list out
@@ -63,7 +62,7 @@ class Comment(models.Model):
                                 on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.SET_NULL,
                                null=True, editable=False)
-    body_text = RichTextField(blank=True, null=True)
+    body_text = models.TextField()
     slug = models.SlugField(allow_unicode=True, unique=True, editable=False,
                             default='lipa_city_comment')
     created_date = models.DateTimeField(default=timezone.now)

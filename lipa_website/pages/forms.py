@@ -21,11 +21,12 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ('title', 'body_text',)
+        fields = ('title', 'body_text', 'category', 'hero_image')
 
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'textinputclass'}),
+            'title': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
             'body_text': forms.Textarea(attrs={'class': 'editable medium-editor-textarea articlecontent'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
         }
 
 
@@ -36,5 +37,11 @@ class CommentForm(forms.ModelForm):
         fields = ('body_text',)
 
         widgets = {
-            'body_text': forms.Textarea(attrs={'class': 'editable medium-editor-textarea'}),
+            'body_text': forms.Textarea(attrs={
+                            'class': 'form-control',
+                            'rows': 3}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["body_text"].label = ''

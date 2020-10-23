@@ -6,11 +6,15 @@ from .forms import ArticleForm, CommentForm
 
 from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView,
-                                  UpdateView, DeleteView)
+                                  UpdateView, DeleteView,
+                                  RedirectView)
 
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
+from django.urls import reverse
+from django.db import IntegrityError
+from django.contrib import messages
 
 # Create your views here.
 
@@ -67,7 +71,26 @@ class ArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         article = get_object_or_404(Article, slug=self.kwargs['slug'])
         context['page_title'] = article.title
+        context['form'] = CommentForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        article = get_object_or_404(Article, slug=self.kwargs.get("slug"))
+        form = CommentForm(request.POST)
+        try:
+            if form.is_valid():
+                text = form.cleaned_data['body_text']
+                Comment.objects.create(author=request.user,
+                                       article=article,
+                                       body_text=text)  # fix
+
+        except IntegrityError:
+            messages.warning(self.request, ("Warning, can't comment on {}".format(article.title)))
+
+        else:
+            messages.success(self.request, "Comment posted")
+
+        return super().get(request, *args, **kwargs)
 
 
 class CreateArticleView(LoginRequiredMixin, CreateView):
@@ -82,6 +105,19 @@ class CreateArticleView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Create Article'
         return context
+
+    def form_valid(self, form, request):
+        self.object = form.save(commit=False)
+        self.object.author = request.user
+        self.object.save()
+        return super().form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form, request)
+        else:
+            return self.form_invalid(form)
 
 
 class ArticleUpdateView(LoginRequiredMixin, UpdateView):
