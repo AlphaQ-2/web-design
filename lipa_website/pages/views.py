@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Article, Comment
-from .forms import ArticleForm, CommentForm
+from .models import Article, Comment, Category, Job
+from .forms import ArticleForm, CommentForm, JobForm
 
 from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView,
@@ -15,6 +15,7 @@ from . import forms
 from django.urls import reverse
 from django.db import IntegrityError
 from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
 
@@ -55,11 +56,30 @@ class ArticleListView(ListView):
     model = Article
 
     def get_queryset(self):
-        return Article.objects.filter(published_date__lte=timezone.now()) \
-                .order_by('-published_date')
+        category = self.request.GET.get('category')
+        search = self.request.GET.get('search')
+        articles = Article.objects.filter(published_date__lte=timezone.now()) \
+            .order_by('-published_date')
+
+        if category:
+            articles = articles.filter(category__title=category)
+
+        if search:
+            articles = articles.filter(
+                Q(title__icontains=search) | Q(body_text__icontains=search)
+                | Q(category__title__icontains=search)
+            )
+
+        return articles
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()[:10]
+        jobs = Job.objects.filter(
+                Q(created_date__lte=timezone.now()) & Q(is_open=True)
+                ).order_by('-created_date')[:10]
+        context['jobs'] = jobs
+        context['categories'] = categories
         context['page_title'] = 'Articles'
         return context
 
@@ -70,6 +90,12 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = get_object_or_404(Article, slug=self.kwargs['slug'])
+        categories = Category.objects.all()[:10]
+        jobs = Job.objects.filter(
+                Q(created_date__lte=timezone.now()) & Q(is_open=True)
+                ).order_by('-created_date')[:10]
+        context['jobs'] = jobs
+        context['categories'] = categories
         context['page_title'] = article.title
         context['form'] = CommentForm()
         return context
@@ -160,6 +186,23 @@ class DraftListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Draft Article'
         return context
+
+
+class CreateJobView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'pages/article_list.html'
+
+    form_class = JobForm
+
+    model = Job
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Create Job'
+        return context
+
+    def get_absolute_url(self):
+        return reverse('article_list', args=[])
 
 
 #######################################

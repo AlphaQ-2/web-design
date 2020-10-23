@@ -23,4 +23,5 @@ urlpatterns = [
          name='comment_approve'),
     path('comment/<slug>/remove/', views.comment_remove,
          name='comment_remove'),
+    path('job/new/', views.CreateJobView.as_view(), name='job_new'),
 ]

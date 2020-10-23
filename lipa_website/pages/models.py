@@ -96,3 +96,20 @@ class Service(models.Model):
     name = models.TextField(max_length=200)
     telephone = models.TextField('Telephone')
     email = models.EmailField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Job(models.Model):
+    title = models.TextField(max_length=200)
+    company = models.TextField(max_length=200, blank=True)
+    link = models.URLField()
+    is_open = models.BooleanField(default=True)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('article_list', args=[])
