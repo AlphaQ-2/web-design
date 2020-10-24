@@ -10,6 +10,8 @@
     <meta name="author" content="AlphaQ">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
     {# DataTables #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
@@ -21,10 +23,20 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static '/css/article_list.css' %}">
-    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}"> {% endcomment %}
+
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 
     <title>
       Lipa City
@@ -33,75 +45,172 @@
       {% endif %}
     </title>
   </head>
+
   <body>
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="{% url 'home' %}">
-        <img src="{% static "images/logo.png" %}" width='30' height='30' class="img-rounded center-block"></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="nav navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">Who we are</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'service_list' %}">What we do</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'article_list' %}">News & Events</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-              </li>
-              {% if user.is_authenticated %}
-              {% if user.is_superuser %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Create
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'article_new' %}">Article</a>
-                  <a class="dropdown-item" href="{% url 'job_new' %}">Job</a>
-                  <a class="dropdown-item" href="{% url 'service_new' %}">Service</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'article_draft_list' %}">Drafts</a>
-                  <a class="dropdown-item" href="/admin">Admin</a>
-                </div>
-              </li>
-              {% endif %}
-              <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-              </li>
-              {% endif %}
-            </ul>
-            {% if user.is_authenticated %}
-            <span class="navbar-text">
-              Welcome @{{ user }}
-            </span>
+    <header id="header" class="fixed-top d-flex align-items-center">
+      <div class="container d-flex align-items-center">
+
+        <div class="logo mr-auto">
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static "images/lipa_logo.png" %}" class="img-rounded center-block">
+          </a>
+        </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            {% url 'home' as home_url %}
+            {% url 'about' as about_url %}
+            {% url 'service_list' as service_list_url %}
+            {% url 'article_list' as article_list_url %}
+            {% url 'contact' as contact_url %}
+
+            {% if request.get_full_path == home_url %}
+            <li class="active">
+            {% else %}
+            <li>
             {% endif %}
-          </div>
+            <a href="{% url 'home' %}">Home</a>
+            </li>
+
+            {% if request.get_full_path == about_url %}
+            <li class="active">
+            {% else %}
+            <li>
+            {% endif %}
+            <a href="{% url 'about' %}">Who We Are</a>
+            </li>
+
+            {% if request.get_full_path == service_list_url %}
+            <li class="active">
+            {% else %}
+            <li>
+            {% endif %}
+            <a href="{% url 'service_list' %}">What We Do</a>
+            </li>
+
+            {% if request.get_full_path == article_list_url %}
+            <li class="active">
+            {% else %}
+            <li>
+            {% endif %}
+            <a href="{% url 'article_list' %}">News & Events</a>
+            </li>
+
+            {% if request.get_full_path == contact_url %}
+            <li class="active">
+            {% else %}
+            <li>
+            {% endif %}
+            <a href="{% url 'contact' %}">Contact</a>
+            </li>
+
+            {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+            <li class="drop-down"><a href="">Create</a>
+              <ul>
+                <li><a href="{% url 'article_new' %}">Article</a></li>
+                <li><a href="{% url 'job_new' %}">Job</a></li>
+                <li><a href="{% url 'service_new' %}">Service</a></li>
+                <hr>
+                <li><a href="{% url 'article_draft_list' %}">Drafts</a></li>
+                <li><a href="/admin">Admin</a></li>
+              </ul>
+            </li>
+            {% endif %}
+            <li><a href="/logout">Logout</a></li>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <li class='get-started'><a href="/admin">Welcome @{{ user }}</a></li>
+            {% else %}
+            <li class='get-started'><a href="{% url 'about' %}">Learn More</a></li>
+            {% endif %}
+
+          </ul>
       </nav>
+
+    </div>
+
+    </header>
+
+    {% url 'home' as home_url %}
+    {% if request.get_full_path == home_url %}
+
+    <section id="hero" class="d-flex align-items-center">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h1 data-aos="fade-up">Welcome to Lipa!</h1>
+            <h2 data-aos="fade-up" data-aos-delay="400">The Little Rome of the Philippines</h2>
+            <div data-aos="fade-up" data-aos-delay="800">
+              <a href="#about" class="btn-get-started scrollto">Know more</a>
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
+            <img src="{% static "images/logo.png" %}" class="img-fluid animated" alt="">
+          </div>
+        </div>
+      </div>
+
+    </section>
+    {% endif %}
+
+    <main id="main">
         {% block content %}
         {% endblock %}
-      </div>
-      <script   src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="   crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-      <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" charset="utf-8"></script>
-      <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" charset="utf-8"></script>
-      <script type="text/javascript">
-      $(document).ready( function () {
-        $('#services-all').DataTable();
-      } );
-      </script>
-      <footer class='footer fixed-bottom'>
-        <!-- Copyright -->
-        <div class="footer-copyright text-center text-black-50 py-3">© 2020 Copyright:
-          <a class="dark-grey-text" href="https://github.com/AlphaQ-2"> AlphaQ</a>
+    </main>
+
+    <footer id="footer">
+      <div class="container">
+        <div class="row d-flex align-items-center">
+          <div class="col-lg-6 text-lg-left text-center">
+            <div class="copyright">
+              &copy; Copyright <strong>AlphaQ</strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+              A submission for the Lipa City Website Competition.
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+              <a href="{% url 'home' %}" class="scrollto">Home</a>
+              <a href="{% url 'about' %}" class="scrollto">About</a>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Use</a>
+            </nav>
+          </div>
         </div>
-        <!-- Copyright -->
-      </footer>
+      </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    {% comment %} <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="   crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> {% endcomment %}
+
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+    $(document).ready( function () {
+      $('#services-all').DataTable();
+    } );
+    </script>
+
   </body>
 </html>

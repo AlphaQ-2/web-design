@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for article in article_list %}
-        <div class="article">
-            <p class="date">created: {{ article.created_date|date:'d-m-Y' }}</p>
-            <h1><a href="{% url 'article_detail' slug=article.slug %}">{{ article.title }}</a></h1>
-            <p>{{ article.body_text|truncatechars:200|safe }}</p>
-        </div>
-    {% endfor %}
+
+<div class="container lipa-content">
+  {% for article in article_list %}
+      <div class="article">
+          <p class="date">created: {{ article.created_date|date:'d-m-Y' }}</p>
+          <h1><a href="{% url 'article_detail' slug=article.slug %}">{{ article.title }}</a></h1>
+          <p>{{ article.body_text|truncatechars:200|safe }}</p>
+      </div>
+  {% endfor %}
+</div>
+
 {% endblock %}
