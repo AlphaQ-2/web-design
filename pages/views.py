@@ -82,6 +82,7 @@ class AboutView(TemplateView):
 
 
 class ArticleListView(ListView):
+    paginate_by = 5
     model = Article
 
     def get_queryset(self):
@@ -103,10 +104,10 @@ class ArticleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()[:10]
+        categories = Category.objects.all()[:10]  # We can add more if needed
         jobs = Job.objects.filter(
                 Q(created_date__lte=timezone.now()) & Q(is_open=True)
-                ).order_by('-created_date')[:10]
+                ).order_by('-created_date')
         context['jobs'] = jobs
         context['categories'] = categories
         context['page_title'] = 'Articles'
