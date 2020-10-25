@@ -455,6 +455,19 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+button[type="submit"].send-form {
+  background: #3498db;
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+button[type="submit"]:hover.send-form {
+  background: #2383c4;
+}
+
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/

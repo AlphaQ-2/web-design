@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Article, Comment, Category, Job, Message, ArticleImage, \
                     Service
-from .forms import ArticleForm, CommentForm, JobForm, MessageForm, ServiceForm
+from .forms import ArticleForm, CommentForm, JobForm, MessageForm, \
+                   ServiceForm, MessageForm2
 
 from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView,
@@ -26,8 +27,30 @@ class HomePage(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        form = MessageForm2()
+        context['form'] = form
         context['page_title'] = 'Home'
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = MessageForm2(request.POST)
+        try:
+            if form.is_valid():
+                data = form.cleaned_data
+                Message.objects.create(name=data['name'],
+                                       email=data['email'],
+                                       subject=data['subject'],
+                                       body_text=data['body_text'])
+
+        except IntegrityError:
+            messages.warning(self.request, (
+                            "Warning, can't send message right now."
+                            ))
+
+        else:
+            messages.success(self.request, "Comment posted")
+
+        return super().get(request, *args, **kwargs)
 
 
 class ThanksPage(TemplateView):

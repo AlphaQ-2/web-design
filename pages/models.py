@@ -121,6 +121,7 @@ class Job(models.Model):
 class Message(models.Model):
     name = models.TextField(max_length=200)
     email = models.EmailField()
+    subject = models.TextField(max_length=200, default='Inquiry')
     body_text = models.TextField()
     time_sent = models.DateTimeField(default=timezone.now, editable=False)
 

@@ -64,7 +64,7 @@ class MessageForm(forms.ModelForm):
 
     class Meta:
         model = Message
-        fields = ('name', 'email', 'body_text',)
+        fields = ('name', 'email', 'subject', 'body_text',)
         labels = {
             'body_text': 'Message'
         }
@@ -72,8 +72,42 @@ class MessageForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
             'email': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
+            'subject': forms.TextInput(attrs={'class': 'textinputclass container-fluid form-control'}),
             'body_text': forms.Textarea(attrs={
-                            'class': 'form-control', }),
+                            'class': 'form-control',
+                            'rows': '3' }),
+        }
+
+
+class MessageForm2(forms.ModelForm):
+
+    class Meta:
+        model = Message
+        fields = ('name', 'email', 'subject', 'body_text',)
+        labels = {
+            'name': '',
+            'email': '',
+            'subject': '',
+            'body_text': ''
+        }
+
+        widgets = {
+            'name': forms.TextInput(
+                        attrs={
+                            'class': 'textinputclass container-fluid form-control',
+                            'placeholder': 'Name'}),
+            'email': forms.TextInput(
+                        attrs={
+                            'class': 'textinputclass container-fluid form-control',
+                            'placeholder': 'Email'}),
+            'subject': forms.TextInput(
+                        attrs={
+                            'class': 'textinputclass container-fluid form-control',
+                            'placeholder': 'Subject'}),
+            'body_text': forms.Textarea(attrs={
+                            'class': 'form-control',
+                            'placeholder': 'Message',
+                            'rows': '3' }),
         }
 
 

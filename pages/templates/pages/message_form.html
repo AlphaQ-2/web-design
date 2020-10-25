@@ -41,13 +41,12 @@
     </div>
   </div>
 
-  <p>Got a question? inquiry? or feedback?</p>
   <form method="POST" enctype="multipart/form-data" class="post-form">
   {% csrf_token %}
   <table class='table'>
     {{form.as_table}}
   </table>
-  <button type="submit" class="save btn btn-primary">Send</button>
+  <div class="text-center"><button class='send-form' type="submit">Send Message</button></div>
   </form>
 </div>
 
