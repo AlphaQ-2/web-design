@@ -28,6 +28,14 @@ class HomePage(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = MessageForm2()
+        try:
+            places_cat = get_object_or_404(Category, title='Places')
+            significant_locations = Article.objects.filter(
+                category=places_cat
+            ).order_by('-published_date')[:4]
+            context['significant_locations'] = significant_locations
+        except:
+            pass
         context['form'] = form
         context['page_title'] = 'Home'
         return context

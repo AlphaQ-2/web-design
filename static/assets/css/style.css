@@ -418,6 +418,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 100px;
 }
 
+.lipa-content p.history {
+  text-align:justify
+}
+
 .lipa-content h1 {
   margin: 0 0 10px 0;
   font-size: 48px;
@@ -529,6 +533,80 @@ button[type="submit"].send-form {
 
 button[type="submit"]:hover.send-form {
   background: #8B0000;
+}
+
+.lipa-content blockquote {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.lipa-content .contact-about h3 {
+  font-size: 28px;
+  margin: 0 0 10px 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #222222;
+}
+
+.lipa-content .contact-about p {
+  font-size: 14px;
+  line-height: 24px;
+  font-family: "Raleway", sans-serif;
+  color: #888;
+}
+
+.lipa-content .social-links {
+  padding-bottom: 20px;
+}
+
+.lipa-content .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #fff;
+  color: #ffcf40;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+  border: 1px solid #ffcf40;
+}
+
+.lipa-content .social-links a:hover {
+  background: #ffcf40;
+  color: #fff;
+}
+
+.lipa-content .info {
+  color: #444444;
+}
+
+.lipa-content .info i {
+  font-size: 32px;
+  color: #B80800;
+  float: left;
+  line-height: 1;
+}
+
+.lipa-content .info p {
+  padding: 0 0 10px 42px;
+  line-height: 28px;
+  font-size: 14px;
+}
+
+/* #statistics {
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
+} */
+
+#statistics img.stat {
+  max-height: 300px;
 }
 
 /*--------------------------------------------------------------
@@ -962,6 +1040,7 @@ section {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  margin-top: 30px;
 }
 
 .more-services .card-body {
@@ -1007,6 +1086,7 @@ section {
 
 .more-services .card:hover .card-body {
   background: #B80800;
+  color: #fff;
 }
 
 .more-services .card:hover .read-more a, .more-services .card:hover .card-title, .more-services .card:hover .card-title a, .more-services .card:hover .card-text {

@@ -2,19 +2,46 @@
 {% load static %}
 {% block content %}
 <div class="container lipa-content">
-  <u><h1>Our Mission</h1></u>
-  <p>To serve you.</p>
+  <u><h1 class='text-center'>History</h1></u>
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <p class='history'>
+        Lipa is one of the three cities in the province of Batangas, Philippines (the others being Batangas City and the City of Tanauan). It is situated 80 kilometers south of Manila. According to the latest census, it has a population of 283, 468 inhabitants in 59,063 households.<br><br>
+    The city is considered a religious center due to the numerous magnificent churches, convents, retreat facilities, and seminaries. Dubbed as the “Little Rome of the Philippines,” tourists usually flock to the city, especially during Lenten Season. It is also the seat of the Archdiocese of Lipa and the home of two popular apparitions, the Shower of Petals in 1948 and the “Lady” atop a coconut tree in 1993. It is also the host to the annual Marian Pilgrimage: The National Day of Prayer for Peace and the Sanctification of the Clergy.<br><br>
+    Being at the forefront of economic activities in the province and in the region, Lipa City is an ideal place for investments due to its business-friendly environment. It provides great opportunities for light industries such as the LIMA Industrial Estate, Nestle Philippines, and other multinational companies.<br><br>
+    Having been identified as one of the ten cyber growth corridors in the country, Lipa City has a great potential in business process outsourcing as it has been chosen as on the Top 10 Next Wave Cities for a couple of years now.<br><br>
+
+    The city is now one of the two (the other being Batangas City) newest districts of Batangas Province.
+
+      </p>
+    </div>
+
+    <div class="col-6">
+      <div class="col-12">
+        <img class='img-fluid rounded' src="{% static 'images/1.jpg' %}" alt="">
+      </div>
+      <div class="col-12">
+        <img class='img-fluid rounded mt-4' src="{% static 'images/3.jpg' %}" alt="">
+      </div>
+    </div>
+
+  </div>
+
   <hr>
-  <u><h1>Who we are</h1></u>
+
+  <u><h1 class='text-center'>Our Mission</h1></u>
+  <blockquote class="blockquote text-center">
+    <p class="mb-0">"Empower people. Better governance. Advance services."</p>
+  </blockquote>
+  <hr>
 </div>
 
-  <!-- ======= Team Section ======= -->
   <section id="team" class="team section-bg">
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
         <h2>Your Leaders</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
+        <p>Here are the people you can look up to.</p>
       </div>
 
       <div class="row">
@@ -22,7 +49,7 @@
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="member" data-aos="fade-up" data-aos-delay="100">
             <div class="member-img">
-              <img src="{% static 'assets/img/team/team-1.jpg' %}" class="img-fluid" alt="">
+              <img src="{% static 'images/official1.jpg' %}" class="img-fluid" alt="">
               <div class="social">
                 <a href=""><i class="icofont-twitter"></i></a>
                 <a href=""><i class="icofont-facebook"></i></a>
@@ -31,8 +58,8 @@
               </div>
             </div>
             <div class="member-info">
-              <h4>Walter White</h4>
-              <span>Chief Executive Officer</span>
+              <h4>ERIC B. AFRICA</h4>
+              <span>Mayor</span>
             </div>
           </div>
         </div>
@@ -40,7 +67,7 @@
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="member" data-aos="fade-up" data-aos-delay="200">
             <div class="member-img">
-              <img src="{% static 'assets/img/team/team-2.jpg' %}" class="img-fluid" alt="">
+              <img src="{% static 'images/official2.jpg' %}" class="img-fluid" alt="">
               <div class="social">
                 <a href=""><i class="icofont-twitter"></i></a>
                 <a href=""><i class="icofont-facebook"></i></a>
@@ -49,8 +76,8 @@
               </div>
             </div>
             <div class="member-info">
-              <h4>Sarah Jhonson</h4>
-              <span>Product Manager</span>
+              <h4>MARK ARIES P. LUANCING</h4>
+              <span>Vice Mayor</span>
             </div>
           </div>
         </div>
@@ -58,7 +85,7 @@
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="member" data-aos="fade-up" data-aos-delay="300">
             <div class="member-img">
-              <img src="{% static 'assets/img/team/team-3.jpg' %}" class="img-fluid" alt="">
+              <img src="{% static 'images/official3.jpg' %}" class="img-fluid" alt="">
               <div class="social">
                 <a href=""><i class="icofont-twitter"></i></a>
                 <a href=""><i class="icofont-facebook"></i></a>
@@ -67,8 +94,8 @@
               </div>
             </div>
             <div class="member-info">
-              <h4>William Anderson</h4>
-              <span>CTO</span>
+              <h4>VILMA SANTOS-RECTO</h4>
+              <span>Representative</span>
             </div>
           </div>
         </div>
@@ -76,7 +103,7 @@
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="member" data-aos="fade-up" data-aos-delay="400">
             <div class="member-img">
-              <img src="{% static 'assets/img/team/team-4.jpg' %}" class="img-fluid" alt="">
+              <img src="{% static 'images/official4.jpg' %}" class="img-fluid" alt="">
               <div class="social">
                 <a href=""><i class="icofont-twitter"></i></a>
                 <a href=""><i class="icofont-facebook"></i></a>
@@ -85,8 +112,8 @@
               </div>
             </div>
             <div class="member-info">
-              <h4>Amanda Jepson</h4>
-              <span>Accountant</span>
+              <h4>JAN PAULO N. MACALA</h4>
+              <span>SK Federation President</span>
             </div>
           </div>
         </div>
@@ -94,41 +121,42 @@
       </div>
 
     </div>
-  </section><!-- End Team Section -->
+  </section>
 
   <!-- ======= Counts Section ======= -->
   <section id="counts" class="counts">
     <div class="container">
 
       <div class="row">
-        <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
-          <img src="{% static 'assets/img/counts-img.svg' %}" alt="" class="img-fluid">
+        <div class="image col-xl-5 align-items-stretch justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
+          <img src="{% static 'images/city.png' %}" alt="" class="img-fluid">
         </div>
 
         <div class="col-xl-7 d-flex align-items-stretch pt-4 pt-xl-0" data-aos="fade-left" data-aos-delay="300">
           <div class="content d-flex flex-column justify-content-center">
+            <u><h1>Quick Facts</h1></u>
             <div class="row">
               <div class="col-md-6 d-md-flex align-items-md-stretch">
                 <div class="count-box">
                   <i class="icofont-simple-smile"></i>
-                  <span data-toggle="counter-up">65</span>
-                  <p><strong>Happy Clients</strong> consequuntur voluptas nostrum aliquid ipsam architecto ut.</p>
+                  <span data-toggle="counter-up">332,386</span>
+                  <p><strong>People</strong> consequuntur voluptas nostrum aliquid ipsam architecto ut.</p>
                 </div>
               </div>
 
               <div class="col-md-6 d-md-flex align-items-md-stretch">
                 <div class="count-box">
                   <i class="icofont-document-folder"></i>
-                  <span data-toggle="counter-up">85</span>
-                  <p><strong>Projects</strong> adipisci atque cum quia aspernatur totam laudantium et quia dere tan</p>
+                  <span data-toggle="counter-up">72</span>
+                  <p><strong>Barangays</strong> adipisci atque cum quia aspernatur totam laudantium et quia dere tan</p>
                 </div>
               </div>
 
               <div class="col-md-6 d-md-flex align-items-md-stretch">
                 <div class="count-box">
                   <i class="icofont-clock-time"></i>
-                  <span data-toggle="counter-up">12</span>
-                  <p><strong>Years of experience</strong> aut commodi quaerat modi aliquam nam ducimus aut voluptate non vel</p>
+                  <span data-toggle="counter-up">73</span>
+                  <p><strong>Years since citihood</strong> aut commodi quaerat modi aliquam nam ducimus aut voluptate non vel</p>
                 </div>
               </div>
 
