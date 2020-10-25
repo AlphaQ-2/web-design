@@ -10,6 +10,7 @@
         <small>in Lipa TODAY!</small>
       </h1>
 
+      {% if article_list %}
       {% for article in article_list %}
       <a href="{% url 'article_detail' slug=article.slug %}">
         <div class="card mb-4">
@@ -36,6 +37,9 @@
         </div>
       </a>
       {% endfor %}
+      {% else %}
+      <p>No articles match your search.</p>
+      {% endif %}
 
       <!-- Pagination -->
       <ul class="pagination justify-content-center mb-4">
@@ -74,11 +78,15 @@
           <div class="row">
             <div class="col-lg-6">
               <ul class="list-unstyled mb-0">
+                {% if categories %}
                 {% for category in categories %}
                 <li>
                   <a href="{% url 'article_list' %}?category={{ category.title }}">{{ category.title }}</a>
                 </li>
                 {% endfor %}
+                {% else %}
+                <li>No categories yet.</li>
+                {% endif %}
               </ul>
             </div>
           </div>
@@ -91,6 +99,7 @@
         <div class="card-body">
           <div class="card">
             <ul class="list-group list-group-flush">
+              {% if jobs %}
               {% for job in jobs %}
               <a href="{{ job.link }}">
                 <li class="list-group-item">
@@ -106,6 +115,9 @@
                 </li>
               </a>
               {% endfor %}
+              {% else %}
+              <li>No jobs available yet.</li>
+              {% endif %}
             </ul>
           </div>
         </div>

@@ -66,7 +66,11 @@
         </div>
         {% endif %}
         {% else %}
+        {% if article.hero_image %}
         <img class="img-fluid rounded" src="{{ article.hero_image.url }}" alt="article_image">
+        {% else %}
+        <p>No preview available.</p>
+        {% endif %}
         {% endif %}
 
 
